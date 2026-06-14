@@ -1,0 +1,79 @@
+# ============================================
+# Android / Gradle / Kotlin 完整 .gitignore
+# ============================================
+
+# ---------- 构建产物 ----------
+/build/
+*/build/
+**/build/
+*.apk
+*.aab
+*.ap_
+*.dex
+
+# ---------- Gradle ----------
+.gradle/
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
+
+# ---------- Kotlin ----------
+.kotlin/
+
+# ---------- Android Studio / IntelliJ IDEA ----------
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+.idea/misc.xml
+.idea/vcs.xml
+.idea/deploymentTargetDropDown.xml
+.idea/gradle.xml
+.idea/compiler.xml
+.idea/jarRepositories.xml
+
+# ---------- 本地配置 ----------
+local.properties
+
+# ---------- 原生构建 ----------
+.externalNativeBuild/
+.cxx/
+captures/
+
+# ---------- NDK ----------
+obj/
+
+# ---------- OS 生成文件 ----------
+.DS_Store
+Thumbs.db
+Desktop.ini
+ehthumbs.db
+
+# ---------- 日志与临时文件 ----------
+*.log
+*.tmp
+*.bak
+*.swp
+*~
+
+# ---------- 签名相关（敏感信息） ----------
+*.jks
+*.keystore
+keystore.properties
+
+# ---------- Lint ----------
+lint-report.html
+lint-results.xml
+
+# ---------- Google Services（如含敏感配置） ----------
+# google-services.json  # 如需提交可注释此行
+
+# ---------- 其他 ----------
+*.hprof

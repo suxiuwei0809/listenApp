@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>健身APP - 训练计划</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #1a1a2e; color: #fff; min-height: 100vh; }
+        .container { max-width: 400px; margin: 0 auto; background: #16213e; min-height: 100vh; }
+        header { background: linear-gradient(135deg, #e94560, #ff6b35); padding: 20px; display: flex; align-items: center; gap: 15px; }
+        .back-btn { width: 36px; height: 36px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        header h1 { font-size: 20px; font-weight: 600; }
+        .plan-cards { padding: 15px; margin-bottom: 80px; }
+        .plan-card { background: #0f3460; border-radius: 16px; padding: 20px; margin-bottom: 15px; cursor: pointer; transition: transform 0.2s; }
+        .plan-card:hover { transform: translateY(-3px); }
+        .plan-card.active { border: 2px solid #e94560; }
+        .plan-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+        .plan-icon { width: 50px; height: 50px; background: linear-gradient(135deg, #e94560, #ff6b35); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+        .plan-info { flex: 1; margin-left: 15px; }
+        .plan-title { font-size: 18px; font-weight: 600; }
+        .plan-desc { font-size: 12px; color: #aaa; margin-top: 4px; }
+        .plan-duration { background: rgba(233, 69, 96, 0.2); color: #e94560; padding: 4px 10px; border-radius: 12px; font-size: 12px; }
+        .plan-details { margin-top: 15px; }
+        .detail-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .detail-label { font-size: 14px; color: #888; }
+        .detail-value { font-size: 14px; font-weight: 500; }
+        .start-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, #e94560, #ff6b35); border: none; border-radius: 12px; color: #fff; font-size: 16px; font-weight: 600; margin-top: 15px; cursor: pointer; }
+        .progress-section { margin-top: 20px; }
+        .progress-title { font-size: 16px; font-weight: 600; margin-bottom: 15px; }
+        .week-dots { display: flex; justify-content: space-between; margin-bottom: 10px; }
+        .dot { width: 32px; height: 32px; background: #0f3460; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+        .dot.active { background: #e94560; }
+        .progress-bar { background: #0f3460; border-radius: 8px; height: 6px; overflow: hidden; margin-top: 10px; }
+        .progress-fill { background: linear-gradient(90deg, #e94560, #ff6b35); height: 100%; border-radius: 8px; }
+        .nav-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #0f3460; display: flex; justify-content: space-around; padding: 15px 0; max-width: 400px; margin: 0 auto; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: #888; cursor: pointer; }
+        .nav-item.active { color: #e94560; }
+        .nav-item span { font-size: 10px; margin-top: 4px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="back-btn" onclick="goToHome()">←</div>
+            <h1>训练计划</h1>
+        </header>
+
+        <div class="plan-cards">
+            <div class="plan-card active">
+                <div class="plan-header">
+                    <div style="display: flex;">
+                        <div class="plan-icon">🔥</div>
+                        <div class="plan-info">
+                            <div class="plan-title">减脂训练</div>
+                            <div class="plan-desc">适合初学者，高效燃脂</div>
+                        </div>
+                    </div>
+                    <span class="plan-duration">4周</span>
+                </div>
+                <div class="plan-details">
+                    <div class="detail-row">
+                        <span class="detail-label">每周训练</span>
+                        <span class="detail-value">4次</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">每次时长</span>
+                        <span class="detail-value">45-60分钟</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">训练类型</span>
+                        <span class="detail-value">有氧+力量</span>
+                    </div>
+                </div>
+                <div class="progress-section">
+                    <div class="progress-title">📊 本周进度</div>
+                    <div class="week-dots">
+                        <div class="dot active">1</div>
+                        <div class="dot active">2</div>
+                        <div class="dot active">3</div>
+                        <div class="dot">4</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%;"></div>
+                    </div>
+                </div>
+                <button class="start-btn" onclick="startPlan('减脂训练')">▶ 开始今日训练</button>
+            </div>
+
+            <div class="plan-card">
+                <div class="plan-header">
+                    <div style="display: flex;">
+                        <div class="plan-icon">💪</div>
+                        <div class="plan-info">
+                            <div class="plan-title">增肌训练</div>
+                            <div class="plan-desc">打造完美身材</div>
+                        </div>
+                    </div>
+                    <span class="plan-duration">8周</span>
+                </div>
+                <div class="plan-details">
+                    <div class="detail-row">
+                        <span class="detail-label">每周训练</span>
+                        <span class="detail-value">5次</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">每次时长</span>
+                        <span class="detail-value">60-90分钟</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">训练类型</span>
+                        <span class="detail-value">力量训练</span>
+                    </div>
+                </div>
+                <button class="start-btn" onclick="startPlan('增肌训练')">▶ 开始训练</button>
+            </div>
+
+            <div class="plan-card">
+                <div class="plan-header">
+                    <div style="display: flex;">
+                        <div class="plan-icon">🧘</div>
+                        <div class="plan-info">
+                            <div class="plan-title">瑜伽塑形</div>
+                            <div class="plan-desc">提升柔韧性</div>
+                        </div>
+                    </div>
+                    <span class="plan-duration">6周</span>
+                </div>
+                <div class="plan-details">
+                    <div class="detail-row">
+                        <span class="detail-label">每周训练</span>
+                        <span class="detail-value">3次</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">每次时长</span>
+                        <span class="detail-value">30-45分钟</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">训练类型</span>
+                        <span class="detail-value">柔韧性训练</span>
+                    </div>
+                </div>
+                <button class="start-btn" onclick="startPlan('瑜伽塑形')">▶ 开始训练</button>
+            </div>
+        </div>
+
+        <div class="nav-bar">
+            <div class="nav-item" onclick="goToHome()">
+                <span>🏠</span>
+                <span>首页</span>
+            </div>
+            <div class="nav-item" onclick="goToWorkout()">
+                <span>🏃</span>
+                <span>运动</span>
+            </div>
+            <div class="nav-item active">
+                <span>📋</span>
+                <span>计划</span>
+            </div>
+            <div class="nav-item" onclick="goToProfile()">
+                <span>👤</span>
+                <span>我的</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goToHome() { window.location.href = 'index.html'; }
+        function goToWorkout() { window.location.href = 'workout.html'; }
+        function goToProfile() { window.location.href = 'profile.html'; }
+        function startPlan(name) { alert(`🎉 开始「${name}」训练计划！\n\n准备好挥洒汗水了吗？`); }
+    </script>
+</body>
+</html>

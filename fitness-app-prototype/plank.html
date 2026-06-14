@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>健身APP - 平板支撑</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #1a1a2e; color: #fff; min-height: 100vh; }
+        .container { max-width: 400px; margin: 0 auto; background: #16213e; min-height: 100vh; }
+        header { background: linear-gradient(135deg, #e94560, #ff6b35); padding: 20px; display: flex; align-items: center; gap: 15px; }
+        .back-btn { width: 36px; height: 36px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        header h1 { font-size: 20px; font-weight: 600; }
+        .timer-section { padding: 40px 20px; text-align: center; }
+        .timer-display { font-size: 72px; font-weight: 300; color: #fff; font-family: 'Courier New', monospace; margin-bottom: 20px; }
+        .timer-display.running { color: #4facfe; }
+        .encouragement { background: #0f3460; border-radius: 12px; padding: 15px 20px; margin-bottom: 20px; min-height: 60px; display: flex; align-items: center; justify-content: center; }
+        .encouragement-text { font-size: 16px; color: #e94560; font-weight: 500; }
+        .action-buttons { display: flex; justify-content: center; gap: 20px; }
+        .action-btn { width: 64px; height: 64px; border-radius: 50%; border: none; font-size: 24px; cursor: pointer; transition: transform 0.2s; }
+        .action-btn:hover { transform: scale(1.1); }
+        .start-btn { background: linear-gradient(135deg, #4facfe, #00f2fe); color: #fff; }
+        .pause-btn { background: linear-gradient(135deg, #ff9f43, #ff6b35); color: #fff; }
+        .reset-btn { background: #636e72; color: #fff; }
+        .stats-section { padding: 20px; }
+        .stats-title { font-size: 16px; font-weight: 600; margin-bottom: 15px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .stat-card { background: #0f3460; border-radius: 12px; padding: 15px; text-align: center; }
+        .stat-value { font-size: 24px; font-weight: 700; color: #e94560; }
+        .stat-label { font-size: 12px; color: #aaa; margin-top: 4px; }
+        .achievements-section { padding: 20px; }
+        .achievements-title { font-size: 16px; font-weight: 600; margin-bottom: 15px; }
+        .achievements-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .achievement-card { background: #0f3460; border-radius: 12px; padding: 15px; text-align: center; }
+        .achievement-card.locked { opacity: 0.4; }
+        .achievement-icon { font-size: 28px; margin-bottom: 8px; }
+        .achievement-name { font-size: 11px; color: #fff; }
+        .nav-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #0f3460; display: flex; justify-content: space-around; padding: 15px 0; max-width: 400px; margin: 0 auto; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: #888; cursor: pointer; }
+        .nav-item.active { color: #e94560; }
+        .nav-item span { font-size: 10px; margin-top: 4px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="back-btn" onclick="goToHome()">←</div>
+            <h1>🤸 平板支撑</h1>
+        </header>
+
+        <div class="timer-section">
+            <div class="timer-display" id="timer">00:00</div>
+            <div class="encouragement">
+                <span class="encouragement-text" id="encouragement">准备好挑战自己了吗？💪</span>
+            </div>
+            <div class="action-buttons">
+                <button class="action-btn reset-btn" onclick="resetTimer()">↺</button>
+                <button class="action-btn start-btn" onclick="toggleTimer()" id="mainBtn">▶</button>
+            </div>
+        </div>
+
+        <div class="stats-section">
+            <div class="stats-title">📊 我的记录</div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">1'32"</div>
+                    <div class="stat-label">最长时间</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">28</div>
+                    <div class="stat-label">累计次数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">45'</div>
+                    <div class="stat-label">总时长</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="achievements-section" style="margin-bottom: 80px;">
+            <div class="achievements-title">🏆 成就系统</div>
+            <div class="achievements-grid">
+                <div class="achievement-card">
+                    <div class="achievement-icon">🌱</div>
+                    <div class="achievement-name">初学者</div>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-icon">🔥</div>
+                    <div class="achievement-name">坚持者</div>
+                </div>
+                <div class="achievement-card locked">
+                    <div class="achievement-icon">👑</div>
+                    <div class="achievement-name">王者</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-bar">
+            <div class="nav-item" onclick="goToHome()">
+                <span>🏠</span>
+                <span>首页</span>
+            </div>
+            <div class="nav-item" onclick="goToWorkout()">
+                <span>🏃</span>
+                <span>运动</span>
+            </div>
+            <div class="nav-item" onclick="goToPlan()">
+                <span>📋</span>
+                <span>计划</span>
+            </div>
+            <div class="nav-item" onclick="goToProfile()">
+                <span>👤</span>
+                <span>我的</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let timerInterval = null;
+        let seconds = 0;
+        let isRunning = false;
+
+        const encouragements = [
+            "加油！刚开始，保持姿势！💪",
+            "太棒了！已经坚持15秒了！🔥",
+            "不要放弃！你可以的！💯",
+            "已经30秒了，继续保持！⏰",
+            "太厉害了！坚持就是胜利！🌟",
+            "45秒了！你是最棒的！🏆",
+            "一分钟了！突破自己！🚀",
+            "75秒！坚持住！马上完成！💪",
+            "90秒！你是王者！继续保持！👑"
+        ];
+
+        function updateTimer() {
+            seconds++;
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            document.getElementById('timer').textContent = 
+                `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            
+            updateEncouragement();
+        }
+
+        function updateEncouragement() {
+            let index = Math.min(Math.floor(seconds / 15), encouragements.length - 1);
+            document.getElementById('encouragement').textContent = encouragements[index];
+        }
+
+        function toggleTimer() {
+            const btn = document.getElementById('mainBtn');
+            const timer = document.getElementById('timer');
+            
+            if (isRunning) {
+                clearInterval(timerInterval);
+                btn.textContent = '▶';
+                btn.className = 'action-btn start-btn';
+                timer.className = 'timer-display';
+            } else {
+                timerInterval = setInterval(updateTimer, 1000);
+                btn.textContent = '⏸';
+                btn.className = 'action-btn pause-btn';
+                timer.className = 'timer-display running';
+            }
+            isRunning = !isRunning;
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            seconds = 0;
+            isRunning = false;
+            document.getElementById('timer').textContent = '00:00';
+            document.getElementById('timer').className = 'timer-display';
+            document.getElementById('mainBtn').textContent = '▶';
+            document.getElementById('mainBtn').className = 'action-btn start-btn';
+            document.getElementById('encouragement').textContent = '准备好挑战自己了吗？💪';
+        }
+
+        function goToHome() { window.location.href = 'index.html'; }
+        function goToWorkout() { window.location.href = 'workout.html'; }
+        function goToPlan() { window.location.href = 'plan.html'; }
+        function goToProfile() { window.location.href = 'profile.html'; }
+    </script>
+</body>
+</html>
