@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="192dp"
+    android:height="192dp"
+    android:viewportWidth="192"
+    android:viewportHeight="192">
+
+    <!-- ===== FitForge 开屏Logo ===== -->
+
+    <!-- 外圈脉冲光环 1（最外层） -->
+    <path
+        android:pathData="M96,96m-76,0a76,76 0,1 0,152 0a76,76 0,1 0,-152 0"
+        android:fillColor="#00000000"
+        android:strokeWidth="1"
+        android:strokeColor="#0DFFFFFF" />
+
+    <!-- 外圈脉冲光环 2 -->
+    <path
+        android:pathData="M96,96m-66,0a66,66 0,1 0,132 0a66,66 0,1 0,-132 0"
+        android:fillColor="#00000000"
+        android:strokeWidth="1"
+        android:strokeColor="#18FFFFFF" />
+
+    <!-- 外圈脉冲光环 3 -->
+    <path
+        android:pathData="M96,96m-56,0a56,56 0,1 0,112 0a56,56 0,1 0,-112 0"
+        android:fillColor="#00000000"
+        android:strokeWidth="1.5">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:endX="96"
+                android:endY="152"
+                android:startX="96"
+                android:startY="40"
+                android:type="linear">
+                <item android:color="#0000E5FF" android:offset="0.0" />
+                <item android:color="#FF00E5FF" android:offset="0.5" />
+                <item android:color="#0000E5FF" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- 断裂装饰环（科技感） -->
+    <path
+        android:pathData="M44,60 A50,50 0,0 1,148 60"
+        android:fillColor="#00000000"
+        android:strokeWidth="2"
+        android:strokeColor="#FF00E5FF" />
+    <path
+        android:pathData="M40,132 A50,50 0,0 0,152 132"
+        android:fillColor="#00000000"
+        android:strokeWidth="2"
+        android:strokeColor="#FF8B5CF6" />
+
+    <!-- 外六边形徽章 -->
+    <path
+        android:pathData="M96,36 L142,58 L142,106 L96,128 L50,106 L50,58Z"
+        android:fillColor="#00000000"
+        android:strokeWidth="3.5">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:endX="96"
+                android:endY="128"
+                android:startX="96"
+                android:startY="36"
+                android:type="linear">
+                <item android:color="#FF00E5FF" android:offset="0.0" />
+                <item android:color="#FF8B5CF6" android:offset="0.5" />
+                <item android:color="#FF00E5FF" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- 内六边形填充 -->
+    <path
+        android:pathData="M96,44 L132,60 L132,100 L96,116 L60,100 L60,60Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:endX="132"
+                android:endY="116"
+                android:startX="60"
+                android:startY="44"
+                android:type="linear">
+                <item android:color="#4400E5FF" android:offset="0.0" />
+                <item android:color="#228B5CF6" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- 字母 "F" - 大号锻造体 -->
+    <path
+        android:pathData="M78,54h38v10h-22v16h18v10h-18v20l-16,0Z"
+        android:fillColor="#FFFFFFFF" />
+
+    <!-- "F" 渐变高光 -->
+    <path
+        android:pathData="M96,54l3,0l0,40l-3,0Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:endX="96"
+                android:endY="94"
+                android:startX="96"
+                android:startY="54"
+                android:type="linear">
+                <item android:color="#FF00E5FF" android:offset="0.0" />
+                <item android:color="#008B5CF6" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- 顶部火焰 -->
+    <path
+        android:pathData="M88,28 Q96,10 104,28 Q96,18 88,28Z"
+        android:fillColor="#FF00E5FF" />
+    <path
+        android:pathData="M92,32 Q96,14 100,32 Q96,26 92,32Z"
+        android:fillColor="#FFFF8C00" />
+
+    <!-- 火花粒子 - 左 -->
+    <path android:pathData="M36,70l10,-3" android:strokeWidth="2" android:strokeColor="#FF00E5FF" android:fillColor="#00000000" />
+    <path android:pathData="M32,80l12,-3" android:strokeWidth="2" android:strokeColor="#FFFF8C00" android:fillColor="#00000000" />
+    <path android:pathData="M36,90l10,-2" android:strokeWidth="2" android:strokeColor="#FF00E5FF" android:fillColor="#00000000" />
+
+    <!-- 火花粒子 - 右 -->
+    <path android:pathData="M146,70l10,3" android:strokeWidth="2" android:strokeColor="#FF00E5FF" android:fillColor="#00000000" />
+    <path android:pathData="M148,80l12,3" android:strokeWidth="2" android:strokeColor="#FFFF8C00" android:fillColor="#00000000" />
+    <path android:pathData="M146,90l10,2" android:strokeWidth="2" android:strokeColor="#FF00E5FF" android:fillColor="#00000000" />
+
+    <!-- 底部能量弧 -->
+    <path
+        android:pathData="M66,132 Q96,142 126,132"
+        android:strokeWidth="4"
+        android:strokeColor="#FF00E5FF"
+        android:fillColor="#00000000" />
+</vector>
